@@ -14,16 +14,34 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from datetime import datetime 
-from urllib.parse import urljoin
+from urllib.parse import urljoinimport os
+from threading import Thread
+from flask import Flask
 
+app = Flask(__name__)
+
+
+@app.route("/")
+def home():
+  return "Bot is running successfully!"
+
+
+def run_web():
+  # Render স্বয়ংক্রিয়ভাবে PORT অ্যাসাইন করে, সেটি এখানে ধরা হচ্ছে
+  port = int(os.environ.get("PORT", 10000))
+  app.run(host="0.0.0.0", port=port)
+
+
+# টেলিগ্রাম বট এবং ফ্লাস্ক সার্ভার একসাথে চালু করার জন্য
 if __name__ == "__main__":
-# ব্যাকগ্রাউন্ডে টেলিগ্রাম বট চালানোর জন্য থ্রেড শুরু করুন
-threading.Thread(target=run_bot, daemon=True).start()
-    
-# Render-এর দেওয়া পোর্ট নিয়ে ফ্লাস্ক সার্ভার রান করুন
-port = int(os.environ.get("PORT", 5000))
-app.run(host='0.0.0.0', port=port)
-    
+  # ব্যাকগ্রাউন্ডে ওয়েব সার্ভার চালু করার জন্য থ্রেড শুরু করা হচ্ছে
+  web_thread = Thread(target=run_web)
+  web_thread.daemon = True
+  web_thread.start()
+
+  # আপনার টেলিগ্রাম বটের মূল কোড বা স্টার্ট ফাংশন এখানে কল করুন
+  # যেমন: main() বা bot.infinity_polling()
+
 # ==========================================
 # Configuration (Token & Owner ID)
 # ==========================================
