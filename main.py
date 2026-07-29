@@ -15,10 +15,13 @@ from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from datetime import datetime 
 from urllib.parse import urljoin
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+# ব্যাকগ্রাউন্ডে টেলিগ্রাম বট চালানোর জন্য থ্রেড শুরু করুন
+threading.Thread(target=run_bot, daemon=True).start()
+    
+# Render-এর দেওয়া পোর্ট নিয়ে ফ্লাস্ক সার্ভার রান করুন
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
     
 # ==========================================
 # Configuration (Token & Owner ID)
