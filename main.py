@@ -15,6 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from datetime import datetime 
 from urllib.parse import urljoin
+
 if __name__ == "__main__":
 # ব্যাকগ্রাউন্ডে টেলিগ্রাম বট চালানোর জন্য থ্রেড শুরু করুন
 threading.Thread(target=run_bot, daemon=True).start()
