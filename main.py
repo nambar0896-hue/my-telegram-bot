@@ -16,6 +16,10 @@ from bs4 import BeautifulSoup
 from datetime import datetime 
 from urllib.parse import urljoin
 
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+    
 # ==========================================
 # Configuration (Token & Owner ID)
 # ==========================================
